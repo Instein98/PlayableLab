@@ -1,0 +1,8 @@
+<release>
+    <version>0.0.1</version>
+    <url>https://github.com/Instein98/CTF_DEATHMATCH/releases/download/v1.0/CTF_DEATHMATCH.zip</url>
+    <zipName>CTF_DEATHMATCH.zip</zipName>
+    <dirName>CTF_DEATHMATCH</dirName>
+    <exeName>CTF_DEATHMATCH.exe</exeName>
+    <log>正在下载的是CTF_DEATHMATCH\n仅用于测试自动更新器\n下载的游戏内容会下载至更新器同级目录下\n请通过更新器来打开游戏确保游戏是最新版本</log>
+</release>

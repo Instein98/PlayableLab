@@ -21,7 +21,16 @@ namespace com.instein98.game{
 		/// This client's version number.
 		/// </summary>
 		string gameVersion = "1";
+		bool isConnecting = false;  // whether the connect is by the user
 
+	#endregion
+
+	#region Public Fields
+		[SerializeField]
+		private GameObject controlPanel;
+		
+		[SerializeField]
+		private GameObject progressLabel;
 	#endregion
 
 	#region MonoBehaviour CallBacks
@@ -30,10 +39,13 @@ namespace com.instein98.game{
 			// Critical
 			// Makes sure PhotonNetwork.LoadLevel() make all clients in the same room sync their level
 			PhotonNetwork.AutomaticallySyncScene = true;
+			// PhotonNetwork = 50000;
 		}
 		// Use this for initialization
 		void Start () {
-			Connect();
+			// Connect();
+			progressLabel.SetActive(false);
+			controlPanel.SetActive(true);
 		}
 		
 		// Update is called once per frame
@@ -51,9 +63,14 @@ namespace com.instein98.game{
 		/// - if not yet connected, Connect this application instance to Photon Cloud Network
 		/// </summary>
 		public void Connect(){
+			isConnecting = true;
+			progressLabel.SetActive(true);
+			controlPanel.SetActive(false);
 			if (PhotonNetwork.IsConnected){
+				// Debug.Log("is connected");
 				PhotonNetwork.JoinRandomRoom();
 			}else{
+				// Debug.Log("is not connected");
 				PhotonNetwork.GameVersion = gameVersion;
 				PhotonNetwork.ConnectUsingSettings();
 			}
@@ -65,11 +82,15 @@ namespace com.instein98.game{
 
 		public override void OnConnectedToMaster(){
 			Debug.Log("OnConnectedToMaster() was called by PUN");
-			PhotonNetwork.JoinRandomRoom();
+			if (isConnecting){
+				PhotonNetwork.JoinRandomRoom();
+			}
 		}
 
 		public override void OnDisconnected(DisconnectCause cause){
-			Debug.Log("OnDisconnected was called by PUN");
+			progressLabel.SetActive(false);
+			controlPanel.SetActive(true);
+			Debug.LogWarningFormat("OnDisconnected() was called by PUN with reason {0}", cause);
 		}
 
 		public override void OnJoinRandomFailed(short returnCode, string message){
@@ -79,6 +100,10 @@ namespace com.instein98.game{
 
 		public override void OnJoinedRoom(){
 			Debug.Log("OnJoinedRoom was called by PUN");
+			if (PhotonNetwork.CurrentRoom.PlayerCount == 1){
+				Debug.Log("We load the 'Room for 1' ");
+				PhotonNetwork.LoadLevel("Room for 1");
+			}
 		}
 
 	#endregion
