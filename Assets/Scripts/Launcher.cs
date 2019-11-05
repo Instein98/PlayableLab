@@ -72,7 +72,11 @@ namespace com.instein98.game{
 			}else{
 				// Debug.Log("is not connected");
 				PhotonNetwork.GameVersion = gameVersion;
-				PhotonNetwork.ConnectUsingSettings();
+				// #if CHINA
+				// 	PhotonNetwork.ConnectToRegion("cn");
+				// #else
+					PhotonNetwork.ConnectUsingSettings();
+				// #endif
 			}
 		}
 

@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon;
+using Photon.Pun;
 
 
 namespace com.instein98.game{
-	public class PlayerAnimatorManager : MonoBehaviour {
+	public class PlayerAnimatorManager :  MonoBehaviourPun {
 
 		private Animator animator;
 
@@ -23,6 +25,9 @@ namespace com.instein98.game{
 				}
 			}
 			void Update () {
+				if (photonView.IsMine == false && PhotonNetwork.IsConnected == true){
+					return;
+				}
 				if (!animator)
 					return;
 				AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
