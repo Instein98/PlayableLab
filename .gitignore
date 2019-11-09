@@ -6,6 +6,7 @@
 Assets/AssetStoreTools*
 Assets/Photon*
 Assets/NGUI*
+Assets/Standard Assets*
 
 # Visual Studio cache directory
 .vs/
@@ -35,5 +36,8 @@ ExportedObj/
 sysinfo.txt
 
 # Builds
+GameBuild*
 *.apk
 *.unitypackage
+*.zip
+*.rar

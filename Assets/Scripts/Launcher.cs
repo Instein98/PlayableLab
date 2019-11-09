@@ -73,8 +73,10 @@ namespace com.instein98.game{
 				// Debug.Log("is not connected");
 				PhotonNetwork.GameVersion = gameVersion;
 				// #if CHINA
+				// 	Debug.Log("ConnectToRegion cn");
 				// 	PhotonNetwork.ConnectToRegion("cn");
 				// #else
+					// Debug.Log("ConnectUsingSettings");
 					PhotonNetwork.ConnectUsingSettings();
 				// #endif
 			}
@@ -85,7 +87,7 @@ namespace com.instein98.game{
 	#region MonoBehaviourPunCallbacks Callbacks
 
 		public override void OnConnectedToMaster(){
-			Debug.Log("OnConnectedToMaster() was called by PUN");
+			Debug.LogFormat("\nConnected to Master in {0}, Current Ping: {1}",PhotonNetwork.CloudRegion, PhotonNetwork.GetPing());
 			if (isConnecting){
 				PhotonNetwork.JoinRandomRoom();
 			}
@@ -105,8 +107,8 @@ namespace com.instein98.game{
 		public override void OnJoinedRoom(){
 			Debug.Log("OnJoinedRoom was called by PUN");
 			if (PhotonNetwork.CurrentRoom.PlayerCount == 1){
-				Debug.Log("We load the 'Room for 1' ");
-				PhotonNetwork.LoadLevel("Room for 1");
+				// Debug.Log("We load the 'Room for 1' ");
+				PhotonNetwork.LoadLevel("PlayLab");
 			}
 		}
 
